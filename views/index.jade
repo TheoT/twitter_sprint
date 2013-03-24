@@ -1,5 +1,9 @@
 extends layout
 
+script(src="/javascripts/Chart.js")
+
 block content
   h1= title
   p Welcome to #{title}
+
+  canvas(id="tweetChart", width="800", height="400")
