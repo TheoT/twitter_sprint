@@ -46,7 +46,7 @@ app.get('/stream', function (req, res) {
   }, function (err, stream) {
     carrier.carry(stream, function (line) {
       var line = JSON.parse(line);
-      res.write(line.text + '\n');
+      console.log(line.text + '\n');
     });
   });
 })
