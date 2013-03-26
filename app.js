@@ -40,7 +40,7 @@ http.createServer(app).listen(app.get('port'), function(){
 
 var carrier = require('carrier');
 
-app.get('/stream', loginRequired, function (req, res) {
+app.get('/stream', function (req, res) {
   req.api.stream('statuses/filter').post({
     track: ['obama', 'usa']
   }, function (err, stream) {
