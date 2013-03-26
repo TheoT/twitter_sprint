@@ -10,5 +10,5 @@ $(function (){
 	]
 }
 	var ctx = document.getElementById("tweetChart").getContext("2d");
-	var myNewChart = new Chart(ctx).Line(data);
+	var myNewChart = new Chart(ctx).Bar(data);
 })
