@@ -1,5 +1,4 @@
 extends layout
-
 block content
 	script(type="text/javascript", src="/javascripts/index.js")
 	script(type="text/javascript", src="/javascripts/Chart.js")
@@ -8,9 +7,9 @@ block content
 				input(type='text',id='keyword') Type Keyword
 				input(type='text',id='datepicker')
 				button(id='submit') Submit 
-		div(id="loading")
-	div(class="progress progress progress-striped active", id="bar")
-		div(class="bar", style="width: 100%;")
+	center
+		div(id="bar")
+			img(src="/images/ajax-loader.gif")
 	div(id="graph", align="center")
 		h1(style="color:#00007F") Twitter Sentiment Results
 		canvas(id="tweetChart", height="400", width="800")

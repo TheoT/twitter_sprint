@@ -1,10 +1,15 @@
 $(function (){
 	$( "#datepicker" ).datepicker();
+	$("#bar").hide();
+	$("#graph").hide()
 	$("#submit").click(function() {	
+		$("#bar").show();
   		$.post("/data",
 	        {date: $("#datepicker").val(), keyword: $("#keyword").val()},
 	        function (data){
 	        	console.log(data);
+	        	$("bar").hide();
+	        	$("#graph").show();
 	  //         var data = {
 			// 	labels : ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
 			// 	datasets : [
