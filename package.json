@@ -7,6 +7,9 @@
   },
   "dependencies": {
     "express": "3.0.6",
-    "jade": "*"
+    "jade": "*",
+    "carrier": "*",
+    "sentiment": "*",
+    "rem": "*"
   }
 }

@@ -6,6 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
+  , index = require('./routes/index')
   , http = require('http')
   , path = require('path');
 
@@ -27,26 +28,23 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', routes.index);
+app.get('/', index.getSentiment); 
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
-/**
- * Streaming example
- */
-
 var carrier = require('carrier');
 
-app.get('/stream', function (req, res) {
-  req.api.stream('statuses/filter').post({
-    track: ['obama', 'usa']
-  }, function (err, stream) {
-    carrier.carry(stream, function (line) {
-      var line = JSON.parse(line);
-      res.write(line.text + '\n');
-    });
-  });
-})
+
+// app.get('/stream', function (req, res) {
+//   req.api.stream('statuses/filter').post({
+//     track: ['obama', 'usa']
+//   }, function (err, stream) {
+//     carrier.carry(stream, function (line) {
+//       var line = JSON.parse(line);
+//       res.write(line.text + '\n');
+//     });
+//   });
+// })
