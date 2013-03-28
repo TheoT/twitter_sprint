@@ -129,7 +129,7 @@ app.get('/', loginRequired, function (req, res) {
   var months = {'Mar': '03'}
 
   var sentiment_client = rem.createClient({format: 'json'}).configure({uploadFormat: 'form'});
-  var sentiment_url = 'http://api.repustate.com/v2/3c1f7bd4197853f6fcee1f254d8d5a06ee599150/score.json'
+  var sentiment_url = 'http://api.repustate.com/v2/cf5226b5f78306bc0ce268ed1c79577358276760/score.json'
   
 
 
@@ -140,7 +140,7 @@ app.get('/', loginRequired, function (req, res) {
     req.api('search/tweets').get({
       q: query,
       until: qDate,
-      count: 10
+      count: 5
     }, function (err, results) {
       if (err) return console.log('error:', err);
       // console.log(results);
@@ -191,10 +191,61 @@ app.get('/', loginRequired, function (req, res) {
       }
 
       setTimeout(function(){
-        console.log(num);
-      }, 1000);
-    }, 1000);
+        // console.log(num);
+        final = {}
+        date_arr = [];
+        pos_arr = [];
+        neg_arr = [];
+        for(date in num){
+          date_arr.push(date);
+          pos_arr.push(average(num[date], 'p'));
+          neg_arr.push(average(num[date], 'n'));
+        }
+        
+        console.log(date_arr);
+        console.log(pos_arr);
+        console.log(neg_arr); 
+
+        // console.log(final);
+      }, 7000);
+    }, 6000);
 
 
   
 })
+
+var average = function(array, type){
+  pos_sum = 0.0;
+  neg_sum = 0.0;
+  pos_count = 0;
+  neg_count = 0;
+
+  for(i=0; i < array.length; i++){
+
+    if(array[i] != 0){
+      if (type=='p'){
+        if(parseFloat(array[i])>0.0){
+          pos_sum += parseFloat(array[i]);
+          pos_count++;
+        }
+      }
+      if (type=='n'){
+        if(parseFloat(array[i])<0.0){
+          neg_sum += parseFloat(array[i]);
+          neg_count++;
+        }
+      }
+
+    }
+  
+  }
+  // console.log(pos_sum);
+  pos_average = pos_sum/pos_count;
+  if (pos_count==0) {pos_average = 0.5;}
+
+  neg_average = neg_sum/neg_count;
+  if (neg_count==0) {neg_average = -0.5;}
+  
+  if (type == 'p') {return pos_average;}
+  if (type == 'n') {return neg_average;}
+}
