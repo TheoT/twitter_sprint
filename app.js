@@ -51,11 +51,11 @@ app.get('/login/', oauth.login());
 
 app.use(oauth.middleware(function (req, res, next) {
   console.log("The user is now authenticated.");
-  res.redirect('/');
+  res.redirect('/home');
 }));
 
 app.get('/logout/', oauth.logout(function (req, res) {
-  res.redirect('/');
+  res.redirect('/home');
 }));
 
 // Save the user session as req.user.
@@ -119,6 +119,10 @@ var carrier = require('carrier');
  */
 
 // var carrier = require('carrier');
+
+app.get('/home',loginRequired,function (req,res){
+  res.render('index', { title: 'Express' });
+});
 
 app.get('/', loginRequired, function (req, res) {
   tws = {};
@@ -194,7 +198,5 @@ app.get('/', loginRequired, function (req, res) {
         console.log(num);
       }, 1000);
     }, 1000);
-
-
   
 })
