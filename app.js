@@ -65,9 +65,6 @@ app.all('/*', function (req, res, next) {
   next();
 });
 
-/**
- * Routes
- */
 
 function loginRequired (req, res, next) {
   if (!req.api) {
@@ -77,23 +74,6 @@ function loginRequired (req, res, next) {
   }
 }
 
-// app.get('/', loginRequired, function (req, res) {
-//   req.api('account/verify_credentials').get(function (err, profile) {
-//     res.send('Hi ' + profile.screen_name + '! <form action="/status" method="post"><input name="status"><button>Post Status</button></form>');
-//   });
-// });
-
-app.post('/status', loginRequired, function (req, res) {
-  req.api('statuses/update').post({
-    status: req.body.status
-  }, function (err, json) {
-    if (err) {
-      res.json({error: err});
-    } else {
-      res.redirect('http://twitter.com/' + json.user.screen_name + '/status/' + json.id_str);
-    }
-  });
-})
 
 
 app.listen(app.get('port'), function () {
@@ -104,22 +84,6 @@ app.listen(app.get('port'), function () {
 var carrier = require('carrier');
 
 
-// app.get('/stream', function (req, res) {
-//   req.api.stream('statuses/filter').post({
-//     track: ['obama', 'usa']
-//   }, function (err, stream) {
-//     carrier.carry(stream, function (line) {
-//       var line = JSON.parse(line);
-//       res.write(line.text + '\n');
-//     });
-//   });
-// })
-
-/**
- * Streaming example
- */
-
-// var carrier = require('carrier');
 
 app.get('/',loginRequired,function (req,res){
   res.render('index', { title: 'Express' });
@@ -128,7 +92,7 @@ app.get('/',loginRequired,function (req,res){
 app.post('/data', loginRequired, function (req, res) {
   tws = {};
   reverse = {}
-  
+
   var query = 'nike';
   var date = '2013-03-26';
   var num = 3;
@@ -212,7 +176,7 @@ app.post('/data', loginRequired, function (req, res) {
         console.log(date_arr);
         console.log(pos_arr);
         console.log(neg_arr); 
-        res.send({array1: date_arr, array2: pos_arr, array3: neg_arr});
+        res.send({dates: date_arr, pos: pos_arr, neg: neg_arr});
         // console.log(final);
       }, 7000);
     }, 6000);
@@ -249,7 +213,7 @@ var average = function(array, type){
   pos_average = pos_sum/pos_count;
   if (pos_count==0) {pos_average = 0.5;}
 
-  neg_average = neg_sum/neg_count;
+  neg_average = neg_sum/neg_count * -1;
   if (neg_count==0) {neg_average = -0.5;}
   
   if (type == 'p') {return pos_average;}
