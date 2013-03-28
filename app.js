@@ -27,7 +27,8 @@ app.configure(function () {
 });
 
 app.configure('development', function () {
-  app.set('host', 'localhost:' + app.get('port'));
+  // app.set('host', 'localhost:' + app.get('port'));
+  app.set('host', process.env.HOST);
   app.use(express.errorHandler());
 });
 
@@ -46,7 +47,6 @@ var twitter = rem.connect('twitter.com').configure({
   secret: process.env.TWITTER_SECRET
 });
 
-console.log(app.get('host'));
 
 var oauth = rem.oauth(twitter, 'http://' + app.get('host') + '/oauth/callback');
 
