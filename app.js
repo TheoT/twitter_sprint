@@ -1,40 +1,3 @@
-// /**
-//  * Module dependencies.
-//  */
-
-// var express = require('express')
-//   , rem = require('rem')
-//   , routes = require('./routes')
-//   , user = require('./routes/user')
-//   , http = require('http')
-//   , path = require('path');
-
-// var app = express();
-
-// app.configure(function(){
-//   app.set('port', process.env.PORT || 3000);
-//   app.set('views', __dirname + '/views');
-//   app.set('view engine', 'jade');
-//   app.use(express.favicon());
-//   app.use(express.logger('dev'));
-//   app.use(express.bodyParser());
-//   app.use(express.methodOverride());
-//   app.use(express.cookieParser(app.get('secret')));
-//   app.use(express.session());
-//   app.use(app.router);
-//   app.use(express.static(path.join(__dirname, 'public')));
-// });
-
-// app.configure('development', function(){
-//   app.use(express.errorHandler());
-// });
-
-// // app.get('/', routes.index);
-// // app.get('/users', user.list);
-
-// // http.createServer(app).listen(app.get('port'), function(){
-// //   console.log("Express server listening on port " + app.get('port'));
-// // });
 
 
 // npm install express rem
@@ -89,7 +52,7 @@ app.get('/login/', oauth.login());
 
 app.use(oauth.middleware(function (req, res, next) {
   console.log("The user is now authenticated.");
-  res.redirect('/home');
+  res.redirect('/');
 }));
 
 app.get('/logout/', oauth.logout(function (req, res) {
@@ -158,13 +121,14 @@ var carrier = require('carrier');
 
 // var carrier = require('carrier');
 
-app.get('/home',loginRequired,function (req,res){
+app.get('/',loginRequired,function (req,res){
   res.render('index', { title: 'Express' });
 });
 
-app.get('/', loginRequired, function (req, res) {
+app.post('/data', loginRequired, function (req, res) {
   tws = {};
   reverse = {}
+  
   var query = 'nike';
   var date = '2013-03-26';
   var num = 3;
@@ -248,7 +212,7 @@ app.get('/', loginRequired, function (req, res) {
         console.log(date_arr);
         console.log(pos_arr);
         console.log(neg_arr); 
-
+        res.send({array1: date_arr, array2: pos_arr, array3: neg_arr});
         // console.log(final);
       }, 7000);
     }, 6000);
