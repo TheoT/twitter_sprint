@@ -121,11 +121,17 @@ var carrier = require('carrier');
 // var carrier = require('carrier');
 
 app.get('/', loginRequired, function (req, res) {
-  var tws = {};
+  tws = {};
+  reverse = {}
   var query = 'nike';
   var date = '2013-03-26';
   var num = 3;
   var months = {'Mar': '03'}
+
+  var sentiment_client = rem.createClient({format: 'json'}).configure({uploadFormat: 'form'});
+  var sentiment_url = 'http://api.repustate.com/v2/3c1f7bd4197853f6fcee1f254d8d5a06ee599150/score.json'
+  
+
 
   for (i = 0; i < 5; i++) {
     var dateChange = i - num + 2;
@@ -134,7 +140,7 @@ app.get('/', loginRequired, function (req, res) {
     req.api('search/tweets').get({
       q: query,
       until: qDate,
-      count: 100
+      count: 10
     }, function (err, results) {
       if (err) return console.log('error:', err);
       // console.log(results);
@@ -142,15 +148,53 @@ app.get('/', loginRequired, function (req, res) {
       var msg = [];
 
       for (j = 0; j < stats.length; j++) {
-        msg.push(stats[j].text);
+        var tweet = stats[j].text;
+        msg.push(tweet);
+
       }
       var dateCreated = stats[0].created_at;
       newDate = dateCreated.substring(26) + '-' + months[dateCreated.substring(4, 7)] + '-' + dateCreated.substring(8, 10)
       
       tws[newDate] = msg;
+      for (i =0; i< msg.length; i++){
+        reverse[msg[i]] = newDate
+      }
+      // console.log(tws);
 
-      console.log(tws);
     });
+  } 
+    // console.log('helloo');
+    setTimeout(function(){
+      num = {}
+      // console.log(tws);
+      // console.log(reverse);
+      for(date in tws) {
+        if (!num[date]) {
+          num[date] = []
+          for(i =0; i< tws[date].length; i++){
+            // console.log(i);
+            tweet = tws[date][i]
+            sentiment_client(sentiment_url).post({'text': tweet}, 
+             function(err, result){
+               tweet = result.text;
+               // console.log("TWWWETTT:  ", tweet);
+              // console.log(reverse[tweet]);
+               newdate = reverse[tweet];
 
-  }
+               // console.log(newdate);
+               num[newdate].push(result.score);
+               // console.log(result);
+             });
+            // console.log(tweet);
+          }
+        }
+      }
+
+      setTimeout(function(){
+        console.log(num);
+      }, 1000);
+    }, 1000);
+
+
+  
 })
