@@ -33,6 +33,7 @@ app.configure('development', function () {
 
 
 app.configure('production', function () {
+  console.log('In production');
   app.set('host', process.env.HOST);
 });
 
