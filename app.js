@@ -93,6 +93,7 @@ app.post('/data', loginRequired, function (req, res) {
   tws = {};
   reverse = {}
 
+  console.log('doing stuff...');
 
   //reformat the input date
   var iDate = req.body.date.split('/');
@@ -184,16 +185,23 @@ app.post('/data', loginRequired, function (req, res) {
         pos_arr = [];
         neg_arr = [];
         for(date in num){
-          console.log(date);
+          // console.log(date);
           date_arr.push(date);
-          pos_arr.push(average(num[date], 'p'));
-          neg_arr.push(average(num[date], 'n'));
         }
+        sorted = date_arr.sort();
         
+        for(number in sorted){
+          
+          curr_date = sorted[number];
+          pos_arr.push(average(num[curr_date], 'p'));
+          neg_arr.push(average(num[curr_date], 'n'));
+
+        }
+
         console.log(date_arr);
         console.log(pos_arr);
         console.log(neg_arr); 
-        res.send({dates: date_arr, pos: pos_arr, neg: neg_arr});
+        res.send({dates: sorted, pos: pos_arr, neg: neg_arr});
         // console.log(final);
       }, 7000);
     }, 6000);
@@ -231,7 +239,7 @@ var average = function(array, type){
   if (pos_count==0) {pos_average = 0.5;}
 
   neg_average = neg_sum/neg_count * -1;
-  if (neg_count==0) {neg_average = -0.5;}
+  if (neg_count==0) {neg_average = 0.5;}
   
   if (type == 'p') {return pos_average;}
   if (type == 'n') {return neg_average;}
