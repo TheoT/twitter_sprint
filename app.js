@@ -128,11 +128,26 @@ app.get('/',loginRequired,function (req,res){
 app.post('/data', loginRequired, function (req, res) {
   tws = {};
   reverse = {}
-  
-  var query = 'nike';
-  var date = '2013-03-26';
+
+  //reformat the input date
+  var iDate = req.body.date.split('/');
+  if (iDate[0].length == 1) iDate[0] = '0' + iDate[0]
+  var date = iDate[2] + '-' + iDate[0] + '-' + iDate[1];
+  var query = req.body.keyword;
   var num = 3;
-  var months = {'Mar': '03'}
+  var months = {'Jan': '01'
+    , 'Feb': '02'
+    , 'Mar': '03'
+    , 'Apr': '04'
+    , 'May': '05'
+    , 'Jun': '06'
+    , 'Jul': '07'
+    , 'Aug': '08'
+    , 'Sep': '09'
+    , 'Oct': '10'
+    , 'Nov': '11'
+    , 'Dec': '12'
+  };
 
   var sentiment_client = rem.createClient({format: 'json'}).configure({uploadFormat: 'form'});
   var sentiment_url = 'http://api.repustate.com/v2/cf5226b5f78306bc0ce268ed1c79577358276760/score.json'
@@ -204,6 +219,7 @@ app.post('/data', loginRequired, function (req, res) {
         pos_arr = [];
         neg_arr = [];
         for(date in num){
+          console.log(date);
           date_arr.push(date);
           pos_arr.push(average(num[date], 'p'));
           neg_arr.push(average(num[date], 'n'));
