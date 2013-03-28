@@ -1,19 +1,24 @@
 doctype 5
 html
-  head
-    title= title
-    //- script(src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js")
-    script(src='http://code.jquery.com/jquery.js')
-    link(rel='stylesheet', href='/stylesheets/bootswatch.css')
-  body
-    div.navbar.navbar-inverse
-      div.navbar-inner
-        a.brand(href='#') Title
-        ul.nav
-          li.active
-            a(href='#') Home
-          li
-            a(href='#') Link
-          li
-            a(href='#') Link
-  block content
+	head
+		title= title
+		//- script(src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js")
+		script(src='http://code.jquery.com/jquery.js')
+		script(src="http://code.jquery.com/ui/1.10.2/jquery-ui.js")
+		link(rel="stylesheet", href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css")
+		link(rel='stylesheet', href='/stylesheets/bootswatch.css')
+		link(rel='stylesheet', href='/stylesheets/style.css')
+
+	body
+		div.navbar.navbar-inverse
+			div.navbar-inner
+				a.brand(href='#') Title
+				ul.nav
+					li.active
+						a(href='#') Home
+					li
+						a(href='#') Link
+					li
+						a(href='#') Link
+	block content
+
