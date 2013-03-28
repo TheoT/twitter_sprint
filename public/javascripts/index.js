@@ -1,12 +1,6 @@
 $(function (){
 	$( "#datepicker" ).datepicker();
-	$("#submit").click(function() {
-		$('.bar').css('width', function() {
-		  setTimeout(function () {
-	            btn.button('reset')
-	        }, 3000)
-		});
-		
+	$("#submit").click(function() {	
   		$.post("/data",
 	        {date: $("#datepicker").val(), keyword: $("#keyword").val()},
 	        function (data){
