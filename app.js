@@ -46,6 +46,7 @@ var twitter = rem.connect('twitter.com').configure({
   secret: process.env.TWITTER_SECRET
 });
 
+console.log(app.get('host'));
 
 var oauth = rem.oauth(twitter, 'http://' + app.get('host') + '/oauth/callback');
 
