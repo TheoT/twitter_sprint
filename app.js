@@ -236,10 +236,10 @@ var average = function(array, type){
   }
   // console.log(pos_sum);
   pos_average = pos_sum/pos_count;
-  if (pos_count==0) {pos_average = 0.5;}
+  if (pos_count==0) {pos_average = Math.random();}
 
   neg_average = neg_sum/neg_count * -1;
-  if (neg_count==0) {neg_average = 0.5;}
+  if (neg_count==0) {neg_average = Math.random();}
   
   if (type == 'p') {return pos_average;}
   if (type == 'n') {return neg_average;}
