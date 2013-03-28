@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #welcome{
 	padding: 5px 5px 5px 5px;
 	background-color: #afafaf;
@@ -10,4 +11,12 @@
 .input{
 	display: block;
 	margin: auto auto;
+}
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
 }
