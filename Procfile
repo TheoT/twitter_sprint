@@ -1,1 +1,0 @@
-web: foreman start -e .env
