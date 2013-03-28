@@ -34,6 +34,7 @@ app.configure('development', function () {
 
 app.configure('production', function () {
   app.set('host', process.env.HOST);
+  app.use(express.errorHandler());
 });
 
 /**
