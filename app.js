@@ -27,14 +27,12 @@ app.configure(function () {
 });
 
 app.configure('development', function () {
-  // app.set('host', 'localhost:' + app.get('port'));
-  app.set('host', process.env.HOST);
+  app.set('host', 'localhost:' + app.get('port'));
   app.use(express.errorHandler());
 });
 
 
 app.configure('production', function () {
-  console.log('In production');
   app.set('host', process.env.HOST);
 });
 
