@@ -1,7 +1,12 @@
 $(function (){
 	$( "#datepicker" ).datepicker();
 	$("#submit").click(function() {
-		$("#loading").append("Loading...");
+		$('.bar').css('width', function() {
+		  setTimeout(function () {
+	            btn.button('reset')
+	        }, 3000)
+		});
+		
   		$.post("/data",
 	        {date: $("#datepicker").val(), keyword: $("#keyword").val()},
 	        function (success){
