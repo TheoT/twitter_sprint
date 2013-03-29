@@ -34,7 +34,7 @@ app.configure('development', function () {
 
 app.configure('production', function () {
   console.log('hi');
-  app.set('host', process.env.HOST);
+  app.set('host', process.env.host);
 });
 
 /**
