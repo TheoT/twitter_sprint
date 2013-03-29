@@ -46,7 +46,7 @@ var twitter = rem.connect('twitter.com').configure({
 });
 
 
-var oauth = rem.oauth(twitter, 'http://' + app.get('host') + '/oauth/callback');
+var oauth = rem.oauth(twitter, 'http://yourimpact.herokuapp.com/oauth/callback');
 
 app.get('/login/', oauth.login());
 
