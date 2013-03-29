@@ -34,7 +34,8 @@ app.configure('development', function () {
 
 app.configure('production', function () {
   console.log('hi');
-  app.set('host', process.env.host);
+  app.set('host', 'yourimpact.herokuapp.com');
+  console.log('host changed to ', app.get('host'));
 });
 
 /**
