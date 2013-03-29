@@ -33,6 +33,7 @@ app.configure('development', function () {
 
 
 app.configure('production', function () {
+  console.log('hi');
   app.set('host', process.env.HOST);
 });
 
@@ -46,7 +47,7 @@ var twitter = rem.connect('twitter.com').configure({
 });
 
 
-var oauth = rem.oauth(twitter, 'http://yourimpact.herokuapp.com/oauth/callback');
+var oauth = rem.oauth(twitter, 'http://' + app.get('host') + '/oauth/callback');
 
 app.get('/login/', oauth.login());
 
