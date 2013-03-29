@@ -1,15 +1,6 @@
-#welcome{
-	padding: 5px 5px 5px 5px;
-	background-color: #afafaf;
-	border: 2px solid #707070;
-	width: 50%;
-	margin: auto auto;
-	border-radius: 4px;
 
-}
-.input{
-	display: block;
-	margin: auto auto;
+input{
+	margin-right: 15px;
 }
 body {
   padding: 50px;
@@ -18,4 +9,24 @@ body {
 
 a {
   color: #00B7FF;
+}
+
+.chart {
+	height: 400px
+	width: 800px
+}
+
+#bar {
+	margin-top: 100px;
+}
+
+.logos{
+	position: fixed;
+	top: 5px;
+	left: 10px;
+}
+
+.logos img{ 
+	height: 50px;
+	float: left;
 }

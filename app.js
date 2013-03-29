@@ -33,9 +33,7 @@ app.configure('development', function () {
 
 
 app.configure('production', function () {
-  console.log('hi');
   app.set('host', 'yourimpact.herokuapp.com');
-  console.log('host changed to ', app.get('host'));
 });
 
 /**
@@ -118,7 +116,7 @@ app.post('/data', loginRequired, function (req, res) {
   };
 
   var sentiment_client = rem.createClient({format: 'json'}).configure({uploadFormat: 'form'});
-  var sentiment_url = 'http://api.repustate.com/v2/cf5226b5f78306bc0ce268ed1c79577358276760/score.json'
+  var sentiment_url = 'http://api.repustate.com/v2/98aa64190f60cef7ade6b0164abdd171e1647f25/score.json'
   
 
 
@@ -129,7 +127,7 @@ app.post('/data', loginRequired, function (req, res) {
     req.api('search/tweets').get({
       q: query,
       until: qDate,
-      count: 5
+      count: 100
     }, function (err, results) {
       if (err) return console.log('error:', err);
       // console.log(results);
