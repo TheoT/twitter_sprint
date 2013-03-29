@@ -6,4 +6,4 @@ But ever wonder if your tweet sharing your insights ever sparked an interest? ev
 
 YourImpact helps you peek into this by showing you a day to day summary of positive and negative sentiment tweets before and after your tweet.
 
-Demo URL: http://yourimpacy.herokuapp.com
+Demo URL: http://yourimpact.herokuapp.com
