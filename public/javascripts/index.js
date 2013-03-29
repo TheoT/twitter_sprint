@@ -14,13 +14,15 @@ $(function (){
 						labels : data.dates,
 						datasets : [
 							{
-								fillColor : "rgba(4,69,133,.85)",
-								strokeColor : "rgba(0,0,120,1)",
+								// fillColor : "rgba(4,69,133,.85)",
+								fillColor : "rgba(59,154,198,.85)",
+								strokeColor : "rgba(51,51,51,1)",
 								data : data['pos']
 							},
 							{
-								fillColor : "rgba(242,41,57,.85)",
-								strokeColor : "rgba(0,0,120,1)",
+								// fillColor : "rgba(184,74,72,.85)",
+								fillColor : "rgba(235,60,60,.85)",
+								strokeColor : "rgba(51,51,51,1)",
 								data : data['neg']
 							}
 							]

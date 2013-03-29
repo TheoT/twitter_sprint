@@ -10,6 +10,12 @@ block content
 					button(id='submit', class="btn") Submit 
 	center
 		div(id="bar")
+			h3 Loading Analysis
 			img(src="/images/ajax-loader.gif")
 	div(id="graph", align="center")
+		h3 Tweet Sentiment Analysis
 		canvas(id="tweetChart", height="400", width="800")
+		center
+			span(class="badge badge-important") Negative Attitude
+			span(class="badge badge-info") Positive Attitude
+		h4 The graph above shows twitter sentiment towards the given keywords.
