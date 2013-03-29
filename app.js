@@ -33,7 +33,7 @@ app.configure('development', function () {
 
 
 app.configure('production', function () {
-  app.set('host', "http://yourimpact.herokuapp.com");
+  app.set('host', process.env.HOST);
 });
 
 /**
