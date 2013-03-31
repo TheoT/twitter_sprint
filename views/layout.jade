@@ -6,20 +6,17 @@ html
 		script(src='http://code.jquery.com/jquery.js')
 		script(src="http://code.jquery.com/ui/1.10.2/jquery-ui.js")
 		link(rel="stylesheet", href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css")
-		link(rel='stylesheet', href='/stylesheets/bootswatch.css')
+		link(rel='stylesheet', href='http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css')
 		link(rel='stylesheet', href='/stylesheets/style.css')
 
 	body
-		div.navbar.navbar-inverse
-			div.navbar-inner
-				a.brand(href='#') Title
-				ul.nav
-					li.active
-						a(href='#') Home
-					li
-						a(href='#') Link
-					li
-						a(href='#') Link
+		div(class='logos')
+			h4 Powered by:
+			img(src="/images/repu.png")
+			img(src="/images/twit.png")
+		div(class="source")
+			h4 
+				a(href="https://github.com/TheoT/twitter_sprint") Source Code
+				
 	block content
-	block graph
 

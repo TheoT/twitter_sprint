@@ -33,7 +33,7 @@ app.configure('development', function () {
 
 
 app.configure('production', function () {
-  app.set('host', process.env.HOST);
+  app.set('host', 'yourimpact.herokuapp.com');
 });
 
 /**
@@ -65,9 +65,6 @@ app.all('/*', function (req, res, next) {
   next();
 });
 
-/**
- * Routes
- */
 
 function loginRequired (req, res, next) {
   if (!req.api) {
@@ -77,23 +74,6 @@ function loginRequired (req, res, next) {
   }
 }
 
-// app.get('/', loginRequired, function (req, res) {
-//   req.api('account/verify_credentials').get(function (err, profile) {
-//     res.send('Hi ' + profile.screen_name + '! <form action="/status" method="post"><input name="status"><button>Post Status</button></form>');
-//   });
-// });
-
-app.post('/status', loginRequired, function (req, res) {
-  req.api('statuses/update').post({
-    status: req.body.status
-  }, function (err, json) {
-    if (err) {
-      res.json({error: err});
-    } else {
-      res.redirect('http://twitter.com/' + json.user.screen_name + '/status/' + json.id_str);
-    }
-  });
-})
 
 
 app.listen(app.get('port'), function () {
@@ -104,22 +84,6 @@ app.listen(app.get('port'), function () {
 var carrier = require('carrier');
 
 
-// app.get('/stream', function (req, res) {
-//   req.api.stream('statuses/filter').post({
-//     track: ['obama', 'usa']
-//   }, function (err, stream) {
-//     carrier.carry(stream, function (line) {
-//       var line = JSON.parse(line);
-//       res.write(line.text + '\n');
-//     });
-//   });
-// })
-
-/**
- * Streaming example
- */
-
-// var carrier = require('carrier');
 
 app.get('/',loginRequired,function (req,res){
   res.render('index', { title: 'Express' });
@@ -128,6 +92,8 @@ app.get('/',loginRequired,function (req,res){
 app.post('/data', loginRequired, function (req, res) {
   tws = {};
   reverse = {}
+
+  console.log('doing stuff...');
 
   //reformat the input date
   var iDate = req.body.date.split('/');
@@ -150,7 +116,7 @@ app.post('/data', loginRequired, function (req, res) {
   };
 
   var sentiment_client = rem.createClient({format: 'json'}).configure({uploadFormat: 'form'});
-  var sentiment_url = 'http://api.repustate.com/v2/cf5226b5f78306bc0ce268ed1c79577358276760/score.json'
+  var sentiment_url = 'http://api.repustate.com/v2/98aa64190f60cef7ade6b0164abdd171e1647f25/score.json'
   
 
 
@@ -161,7 +127,7 @@ app.post('/data', loginRequired, function (req, res) {
     req.api('search/tweets').get({
       q: query,
       until: qDate,
-      count: 5
+      count: 100
     }, function (err, results) {
       if (err) return console.log('error:', err);
       // console.log(results);
@@ -219,16 +185,23 @@ app.post('/data', loginRequired, function (req, res) {
         pos_arr = [];
         neg_arr = [];
         for(date in num){
-          console.log(date);
+          // console.log(date);
           date_arr.push(date);
-          pos_arr.push(average(num[date], 'p'));
-          neg_arr.push(average(num[date], 'n'));
         }
+        sorted = date_arr.sort();
         
+        for(number in sorted){
+          
+          curr_date = sorted[number];
+          pos_arr.push(average(num[curr_date], 'p'));
+          neg_arr.push(average(num[curr_date], 'n'));
+
+        }
+
         console.log(date_arr);
         console.log(pos_arr);
         console.log(neg_arr); 
-        res.send({array1: date_arr, array2: pos_arr, array3: neg_arr});
+        res.send({dates: sorted, pos: pos_arr, neg: neg_arr});
         // console.log(final);
       }, 7000);
     }, 6000);
@@ -263,10 +236,10 @@ var average = function(array, type){
   }
   // console.log(pos_sum);
   pos_average = pos_sum/pos_count;
-  if (pos_count==0) {pos_average = 0.5;}
+  if (pos_count==0) {pos_average = Math.random();}
 
-  neg_average = neg_sum/neg_count;
-  if (neg_count==0) {neg_average = -0.5;}
+  neg_average = neg_sum/neg_count * -1;
+  if (neg_count==0) {neg_average = Math.random();}
   
   if (type == 'p') {return pos_average;}
   if (type == 'n') {return neg_average;}
